@@ -4,34 +4,32 @@
     <head>
         <meta charset="utf-8">
 
-        <title>AngularJS</title>
+        <title>Curso CSS3 Modern Workflows</title>
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-        <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+        <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.css">
     
         <link rel="stylesheet" href="css/theme.css" id="theme">
     
 
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css" id="highlight-theme">
+        <link rel="stylesheet" href="bower_components/highlightjs/styles/zenburn.css">
 
-        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <!-- Printing and PDF exports -->
         <script>
-          if( window.location.search.match( /print-pdf/gi ) ) {
             var link = document.createElement( 'link' );
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'bower_components/reveal.js/css/print/pdf.css';
-                document.getElementsByTagName( 'head' )[0].appendChild( link );
-            }
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'bower_components/reveal.js/css/print/pdf.css' : 'bower_components/reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
         </script>
 
         <!--[if lt IE 9]>
-        <script src="lib/js/html5shiv.js"></script>
+        <script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
         <![endif]-->
     </head>
 
@@ -44,7 +42,10 @@
                 
                     
                         
-    <section data-markdown="slides/index.md"></section>
+    <section><h1 id="angularjs">AngularJS</h1>
+<p>Superheroic JavaScript MVW Framework</p>
+
+</section>
 
 
                     
@@ -55,57 +56,189 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/javascript.md"></section>
+    <section><h2 id="javascript">Javascript</h2>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.2.md"></section>
+    <section><h3 id="javascript">Javascript</h3>
+<p>Todo es un objeto</p>
+<pre><code class="lang-javascript">var string = &quot;texto&quot;,
+
+    array = [1,2,3],
+
+    objeto = {&quot;a&quot;:1};
+
+    funcion = function () {}
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.3.md"></section>
+    <section><h4 id="-mbito-funciones">Ámbito funciones</h4>
+<pre><code class="lang-javascript">var objeto = {
+    propiedad: 1,
+    metodo: function () {
+        return this.propiedad;
+    }
+}
+
+objeto.metodo() -&gt; 1
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.4.md"></section>
+    <section><h4 id="-mbito-funciones">Ámbito funciones</h4>
+<pre><code class="lang-javascript">var funcion = objeto.metodo;
+
+funcion(); -&gt; ?!
+
+// ES5 bindings
+funcion.bind(objeto);
+
+funcion.call(objeto);
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.classes.md"></section>
+    <section><h3 id="clase-java">Clase Java</h3>
+<pre><code class="lang-java">class Coche {
+    int puertas;
+
+    static String[] tipos = [&quot;grande&quot;, pequeño];
+
+    Coche (puertas) {
+        this.puertas = puertas;
+    }
+    int numPuertas () {
+        return this.puertas;
+    }
+}
+
+Coche coche = new Coche(3);
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.classes.2.md"></section>
+    <section><h3 id="clase-javascript">Clase JavaScript</h3>
+<pre><code>function Coche(puertas) {
+    this.puertas = puertas;
+}
+
+Coche.tipos = [&quot;grande&quot;, &quot;pequeño&quot;];
+
+Coche.prototype = {
+    numPuertas: function () {
+        return this.puertas;
+    }
+}
+
+var coche = new Coche(3);
+</code></pre>
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.closures.md"></section>
+    <section><h4 id="closures">Closures</h4>
+<p>Functions which take a small amount of metadata that describes the environment in which they were defined.</p>
+<pre><code class="lang-javascript">
+var counter = (function () {
+    var count = 0;
+    return function () {
+        console.log(count++);
+    }
+})();
+
+counter(); // 0
+counter(); // 1
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.closures2.md"></section>
+    <section><p>Java 7 doesn&#39;t support closures</p>
+<p><img src="assets/closures.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.inheritance.md"></section>
+    <section><h2 id="prototypal-inheritance">Prototypal inheritance</h2>
+<p><img src="assets/inheritance.png" alt=""></p>
+<pre><code class="lang-javascript">var object;
+object = {
+    &quot;a&quot;: 1,
+    &quot;b&quot;: true,
+    &quot;c&quot;: [1,2,3]
+};
+
+object.__proto__ = {
+    &quot;d&quot;: 1,
+    &quot;e&quot;: true,
+    &quot;f&quot;: [1,2,3]
+};
+
+object.__proto__.__proto__ === {}.__proto__;
+
+object.__proto__.__proto__.__proto__ === null;
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.inheritance2.md"></section>
+    <section><pre><code>var b = {
+    &quot;d&quot;: 1,
+    &quot;e&quot;: true,
+    &quot;f&quot;: [1,2,3]
+};
+
+var object = Object.create(b);
+
+object[&quot;a&quot;] = 1;
+object[&quot;b&quot;] = true;
+object[&quot;c&quot;] = [1, 2, 3];
+</code></pre>
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/javascript.why.inheritance3.md"></section>
+    <section><pre><code>function A() {
+    this[&quot;a&quot;] = 1;
+    this[&quot;b&quot;] = true;
+    this[&quot;c&quot;] = [1,2,3];
+}
+
+function B() {
+    this[&quot;d&quot;] = 1;
+    this[&quot;e&quot;] = true;
+    this[&quot;f&quot;] = [1,2,3];
+}
+
+A.prototype = new B();
+
+var object = new A();
+</code></pre>
+</section>
 
 
                             
@@ -117,67 +250,185 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/intro.que.es.md"></section>
+    <section><h2 id="-qu-es-angularjs-">¿Qué es AngularJS?</h2>
+<ul>
+<li><p>Framework javascript para desarrollar <span>páginas web dinámicas</span>.</p>
+</li>
+<li><p>HTML como lenguaje de templating.</p>
+</li>
+<li><p>Sistema de componentes extendiendo la sintaxis HTML.</p>
+</li>
+<li><p>El data binding y la inyección de dependencias simplifica la programación.</p>
+</li>
+<li><p>Versión minificada y gzipeada ocupa 30KBs.</p>
+</li>
+</ul>
+<!--
+AngularJS is a structural framework for dynamic web apps. It lets you use HTML as your template language and lets you extend HTML's syntax to express your application's components clearly and succinctly. Angular's data binding and dependency injection eliminate much of the code you currently have to write. And it all happens within the browser, making it an ideal partner with any server technology.
+
+is a relatively small one: a minified and gzipped version has a size of around 30 KB. A minified version without gzip compression has a size of around 80 KB. It doesn't require any third- party dependencies.
+-->
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.web.dinamica.md"></section>
+    <section><h2 id="-qu-es-una-p-gina-web-din-mica-">¿Qué es una página web dinámica?</h2>
+<p>Gmail</p>
+<p>Google Maps</p>
+<p>Facebook</p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.web.gmail.md"></section>
+    <section><p><img src="assets/gmail.jpg" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.web.gmaps.md"></section>
+    <section><p><img src="assets/gmaps.jpg" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.web.facebook.md"></section>
+    <section><p><img src="assets/facebook.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.ajax.md"></section>
+    <section><h2 id="ajax">AJAX</h2>
+<p>Asynchronous JavaScript and XML</p>
+<p><img src="assets/ajax.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.ajax2.md"></section>
+    <section><p><img src="assets/ajax2.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.md"></section>
+    <section><h2 id="jquery">jQuery</h2>
+<h4 id="usada-en-el-80-de-las-10-000-p-ginas-web-m-s-visitadas-">Usada en el 80% de las 10.000 páginas web más visitadas.</h4>
+<ul>
+<li>Gestión de eventos</li>
+<li>Manipulación DOM</li>
+<li>Animaciones</li>
+<li>AJAX</li>
+<li>Plugins</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.events.md"></section>
+    <section><h3 id="gesti-n-de-eventos">Gestión de eventos</h3>
+<ul>
+<li><p>Añadir un </p>
+<pre><code class="lang-javascript">  $(&quot;.selectorcss&quot;).click(function (ev) {
+      alert(&quot;&quot;);
+  });
+</code></pre>
+</li>
+<li><pre><code class="lang-javascript">  $( &quot;body&quot; ).on( &quot;click&quot;, &quot;script&quot;, function() {
+      alert( $(this).text() );
+  });
+</code></pre>
+</li>
+</ul>
+<!--
+<script>
+$( "body" ).on( "click", "script", function() {
+    alert( $(this).text() );
+});
+</script>
+-->
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.dom.md"></section>
+    <section><h2 id="manipulaci-n-dom">manipulación DOM</h2>
+<ul>
+<li><p>Leer el contenido de un input</p>
+<pre><code class="lang-javascript">  var contenido = $(&quot;input&quot;).val();
+</code></pre>
+</li>
+<li><p>Asignar un valor a un input</p>
+<pre><code class="lang-javascript">  $(&quot;input&quot;).val(&quot;valor&quot;);
+</code></pre>
+</li>
+<li><p>Añadir una clase css</p>
+<pre><code class="lang-javascript">  $(&quot;selector&quot;).addClass(&quot;clickado&quot;);
+</code></pre>
+</li>
+<li><p>Crear un nuevo elemento y añadirlo a otro</p>
+<pre><code class="lang-javascript">  $(this).append(
+      $(&quot;&lt;h4&gt;has hecho Click!&lt;/h4&quot;)
+  );
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.ajax.md"></section>
+    <section><h2 id="ajax">AJAX</h2>
+<pre><code class="lang-javascript">$.ajax( &quot;ruta.php&quot; )
+  .done(function() {
+    alert( &quot;success&quot; );
+  })
+  .fail(function() {
+    alert( &quot;error&quot; );
+  })
+  .always(function() {
+    alert( &quot;complete&quot; );
+  });
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.animations.md"></section>
+    <section><h3 id="animaciones">Animaciones</h3>
+<pre><code class="lang-javascript">$(&quot;.selectorcss&quot;).click(function (ev) {
+  $( &quot;#block&quot; ).animate({
+      opacity: 0.6
+  }, 1500 );
+});
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/intro.jquery.plugins.md"></section>
+    <section><h3 id="plugins">Plugins</h3>
+<pre><code class="lang-javascript">$(&#39;#example&#39;).popover({
+    title: &quot;titulo&quot;,
+    placement: &#39;left&#39;,
+    html: &quot;&lt;h4&gt;Contenido&lt;/h4&gt;&quot;
+});
+</code></pre>
+
+</section>
 
 
                             
@@ -189,62 +440,229 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.md"></section>
+    <section><h1 id="ejemplo">Ejemplo</h1>
+<ul>
+<li><p>Crearemos una lista de tareas con jQuery.</p>
+</li>
+<li><p>El proceso nos ayudará a comprender los porqué del diseño de un framework MVC como AngularJS.</p>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.1.marcado.md"></section>
+    <section><ul>
+<li><p>Creamos una lista para guardar las tareas</p>
+<pre><code class="lang-html">  &lt;ol id=&quot;lista&quot;&gt;
+     &lt;li&gt;Elemento 1&lt;/li&gt;
+     &lt;li&gt;Elemento 2&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;input placeholder=&quot;Escribe un elemento&quot; /&gt;
+  &lt;button&gt;Añadir&lt;/button&gt;
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.2.anadir.md"></section>
+    <section><ul>
+<li><p>Añadimos un gestor de eventos que inserta un nuevo elemento.</p>
+<pre><code class="lang-javascript">  $(&quot;button&quot;).click(function () {
+      // Obtenemos el valor del cuadro de texto
+      var contenido = $(&quot;input&quot;).value();
+
+      // Creamos un nuevo elemento
+      var nuevoElemento = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);
+
+      // Añadimos el texto a dicho elemento
+      nuevoElemento.text(&quot;contenido&quot;);
+
+      // Añadimos el elemento a la lista
+      $(&quot;ol&quot;).append(nuevoElemento);
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.3.borrar.md"></section>
+    <section><ul>
+<li><p>Añadimos la posibilidad de borrar elementos.</p>
+<pre><code class="lang-html">  &lt;ol id=&quot;lista&quot;&gt;
+     &lt;li&gt;Elemento 1 &lt;button&gt;borrar&lt;/button&gt;&lt;/li&gt;
+     &lt;li&gt;Elemento 2 &lt;button&gt;borrar&lt;/button&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+</code></pre>
+<pre><code class="lang-javascript">  $(&quot;ol&quot;).on(&quot;click&quot;, &quot;button&quot;, function (ev) {
+      $(this).parent().remove();
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.4.ajax.md"></section>
+    <section><ul>
+<li><p>Inicializamos la lista desde el servidor</p>
+<pre><code class="lang-javascript">  // Pedimos el contenido al servidor
+  $.get( &quot;lista.php&quot; ).done(function(obj) {
+
+      // Por cada elemento
+      obj.forEach(function(value, index, collection) {
+          $(&quot;ol&quot;).append($(&quot;&lt;li&gt;&lt;/li&gt;&quot;).text(value));
+          $(&quot;ol [tooltip]&quot;).tooltip();
+      });
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.5.tooltip.md"></section>
+    <section><ul>
+<li><p>Añadamos un efecto, un tooltip por ejemplo</p>
+<p>  Necesitaremos inicializar el plugin cada vez que añadamos un nuevo elemento </p>
+<pre><code class="lang-javascript">  $(&quot;button&quot;).click(function () {
+      ...
+      $(&quot;ol [tooltip]&quot;).tooltip();
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.6.disenador.md"></section>
+    <section><ul>
+<li><p>Supongamos que queremos que nuestro diseñador gráfico cambie el aspecto.</p>
+<p>  No es trivial, el html está empotrado en el propio código.</p>
+</li>
+<li><p>¿Quién se atreverá a modificar el html de este plugin?</p>
+<p>  <a href="https://github.com/arshaw/fullcalendar/blob/master/src/basic/BasicView.js">https://github.com/arshaw/fullcalendar/blob/master/src/basic/BasicView.js</a></p>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.7.lista.md"></section>
+    <section><ul>
+<li><p>Añadamos soporte para salvar la lista</p>
+<p>  ¿Dónde almacenamos la lista? Por ahora sólo tenemos HTML.</p>
+<p>  ¿Sacamos del HTML, o matenemos paralelamente una lista?</p>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.8.ambito.md"></section>
+    <section><ul>
+<li><p>¿Y si deseamos usar la lista en varios lugares?</p>
+<ul>
+<li>Deberemos tener cuidado con ámbito global.</li>
+<li><p>El paso de referencias es complejo.</p>
+<pre><code class="lang-javascript">var lista = [];
+
+$.get(&quot;lista&quot;).done(function(obj) {
+  lista = obj;
+});
+
+$(&quot;ol&quot;).on(&quot;click&quot;, &quot;button&quot;, function (ev) {
+  lista.splice($index, 1);
+});
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplo.todo.9.preguntas.md"></section>
+    <section><ul>
+<li><p>Más preguntas</p>
+<ul>
+<li><p>¿Es eficiente? ¿Cúal es coste de los selectores de jQuery?</p>
+</li>
+<li><p>¿Y si recibimos eventos a traves de un bus de mensajes con un websocket?</p>
+</li>
+<li><p>¿Y si queremos que la lista se visualize en varios lugares?</p>
+</li>
+<li><p>¿Se os ocurre como definir unos tests para comprobar el funcionamiento de esta página?</p>
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.separation.concerns.md"></section>
+    <section><h2 id="separation-of-concerns">Separation of concerns</h2>
+<p><a href="http://en.wikipedia.org/wiki/Separation_of_concerns">http://en.wikipedia.org/wiki/Separation_of_concerns</a></p>
+<ul>
+<li><p>Principio de diseño de software</p>
+<ul>
+<li>dividir la responsabilidad en componentes diferentes</li>
+</ul>
+</li>
+<li><p>Sólo con jQuery carecemos de mucha infraestructura.</p>
+<ul>
+<li>Componentes</li>
+<li>Templates</li>
+<li>Data binding</li>
+</ul>
+</li>
+<li><p>Un framework debe enfocarnos hacia buenas prácticas.</p>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angular.jquery.md"></section>
+    <section><h3 id="angular-y-jquery">Angular y jQuery</h3>
+<ul>
+<li><p>jQuery sigue siendo fantástica</p>
+<ul>
+<li>AngularJS incluye una versión reducida llamada jqLite.</li>
+</ul>
+</li>
+<li><p>AngularJS añade funcionalidad extra a jQuery</p>
+<ul>
+<li>debe incluirse antes que angularjs.</li>
+</ul>
+</li>
+<li><p>angular.min.js (con jqLite incluido) 104K</p>
+</li>
+<li><p>jquery.min.js 84K</p>
+</li>
+</ul>
+
+</section>
 
 
                             
@@ -256,12 +674,21 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.tareas.jquery.md"></section>
+    <section><h2 id="tareas-versi-n-jquery">Tareas versión jQuery</h2>
+<p><img src="assets/ejemplos.1.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.tareas.jquery.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- Gestión de eventos
+- Manipulación DOM
+- AJAX
+</code></pre><p><a href="ejemplos/tareas.jquery/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -273,72 +700,157 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.tareas.angular.md"></section>
+    <section><h2 id="tareas-versi-n-angular">Tareas versión Angular</h2>
+<p><img src="assets/ejemplos.1.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.tareas.angular.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- introducción al patrón MVW
+- data binding empleando interpolación y con ng-model
+- los ámbitos creados por las directivas ng-controller y ng-repeater
+</code></pre><p><a href="ejemplos/tareas.angular/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding.md"></section>
+    <section><h2 id="data-binding">Data binding</h2>
+<p>Sincronización automática entre el modelo y la vista.</p>
+<pre><code class="lang-html">&lt;body ng-app ng-init=&quot;name = &#39;World&#39;&quot;&gt;
+    Say hello to: &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;&gt;
+    &lt;h1&gt;Hello, {{name}}!&lt;/h1&gt;
+&lt;/body&gt;
+</code></pre>
+<p><a href="ejemplos/databinding">ejemplo</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding2.md"></section>
+    <section><p><img src="assets/data-binding.png" alt=""></p>
+<ul>
+<li>Usar sólo templates conlleva habitualmente:<ul>
+<li>Redibujar todo el componente</li>
+<li>Gestionar los eventos para actualizar los datos.</li>
+</ul>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding3.md"></section>
+    <section><p><img src="assets/data-binding2.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding4.md"></section>
+    <section><p><img src="assets/data-binding3.png" alt=""></p>
+<ul>
+<li><p>Interpolaciones {{variable}}</p>
+<ul>
+<li>Se reemplaza por su contenido</li>
+</ul>
+</li>
+<li><p>ng-model</p>
+<ul>
+<li>Asocia un componente a una variable</li>
+</ul>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding5.md"></section>
+    <section><p><a href="ejemplos/tareas.angular/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angular.mvc.md"></section>
+    <section><h3 id="mvc-model-view-controller">MVC: Model View Controller</h3>
+<p><img src="assets/mvc.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angular.mvc2.md"></section>
+    <section><h3 id="mvw-model-view-whatever">MVW: Model View Whatever</h3>
+<ul>
+<li><p>modelos</p>
+<ul>
+<li>POJO (Plain Old Javascript Objects)</li>
+</ul>
+</li>
+<li><p>ámbito</p>
+<ul>
+<li>$scope conecta el dominio del modelo con la vista</li>
+</ul>
+</li>
+<li><p>controller</p>
+<ul>
+<li>función que inicializa el objeto $scope</li>
+</ul>
+</li>
+<li><p>Vista</p>
+<ul>
+<li>HTML extendido con interpolaciones y directivas</li>
+</ul>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding6.md"></section>
+    <section><p><img src="assets/data-binding4.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding7.md"></section>
+    <section><p><img src="assets/concepts-scope.png" alt=""></p>
+<pre><code class="lang-javascript">var scope = angular.element($(&quot;body&quot;)).scope();
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding8.md"></section>
+    <section><p><img src="assets/events.png" alt=""></p>
+<p>El scope permite enviar mensajes hacía arriba o hacia abajo</p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding9.md"></section>
+    <section><p><img src="assets/angular.inheritance.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/angularjs.data-binding10.md"></section>
+    <section><p><a href="ejemplos/tareas.angular/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -350,52 +862,171 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra.md"></section>
+    <section><h2 id="lista-de-la-compra">Lista de la compra</h2>
+<p><img src="assets/ejemplos.2.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- eventos
+- validación de formularios
+- inyección de dependencias
+- filtros
+</code></pre><p><a href="ejemplos/listaCompra/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.intro.md"></section>
+    <section><h2 id="inyecci-n-de-dependencias">Inyección de dependencias</h2>
+<ul>
+<li><p>Patrón de diseño orientado a objetos</p>
+</li>
+<li><p>Delegamos la construcción/obtención de objetos a un componente el inyector.</p>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.ejemplo.md"></section>
+    <section><pre><code class="lang-javascript">function Cafetera() {
+    var molinillo = new Molinillo();
+    var bomba = Bomba.getInstance();
+    var calentador = app.get(&#39;Calentador&#39;);
+    this.infusion = function() {
+        molinillo.moler();
+        calentador.on();
+        bomba.bombear();
+    };
+}
+</code></pre>
+<p>El paso de referencias de objetos resulta compleja</p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.solucion.md"></section>
+    <section><pre><code class="lang-javascript">function CoffeeMaker(molinillo, calentador, bomba) {
+    this.infusion = function() {
+        molinillo.moler();
+        calentador.on();
+        bomba.bombear();
+    };
+}
+</code></pre>
+<p>El inyector observará el nombre de los parámetros</p>
+<p><a href="https://github.com/angular/di.js">https://github.com/angular/di.js</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.servicios.md"></section>
+    <section><ul>
+<li><p>Un valor</p>
+<pre><code class="lang-javascript">app.value(&#39;existencia&#39;, 42);
+</code></pre>
+</li>
+<li><p>Una servicio</p>
+<pre><code class="lang-javascript">  app.service(&#39;lista&#39;, function () {
+      var lista = [];
+      return {
+          get: function (id) {
+              return lista[id];
+          }
+      }
+  });
+</code></pre>
+</li>
+<li><p>Un servicio</p>
+<pre><code class="lang-javascript">  app.factory(&#39;services&#39;, function () {
+    return $resource(&#39;/services/:serviceId&#39;, {serviceId:&#39;@id&#39;});
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.anotaciones.md"></section>
+    <section><ul>
+<li><p>inferidas</p>
+<pre><code class="lang-javascript">  $injector.invoke(function($compile, $rootScope) {
+    //
+  });
+</code></pre>
+</li>
+<li><p>inline</p>
+<pre><code class="lang-javascript">  injector.invoke([&#39;$compile&#39;, &#39;$rootScope&#39;, function(obfCompile, obfRootScope) {
+      //
+  }]);
+</code></pre>
+</li>
+<li><p>Anotadas</p>
+<pre><code class="lang-javascript">  var tmpFn = function(obfuscatedCompile, obfuscatedRootScope) {
+    //
+  };
+  tmpFn.$inject = [&#39;$compile&#39;, &#39;$rootScope&#39;];
+  $injector.invoke(tmpFn);
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.idea.creativa.md"></section>
+    <section><h3 id="idea-creativa-">Idea creativa!</h3>
+<pre><code>app.config(function ($routeProvider) {
+    $routeProvider
+        .when(&#39;/services/:serviceId/service&#39;, {
+            controller: &#39;ServiceCtrl&#39;,
+            resolve: {
+                service: function ($route, services) {
+                    return services.get($route.current.params.serviceId);
+                }
+            }
+        });
+});
+
+app.controller(&#39;ServiceCtrl&#39;, function ($scope, service) {
+    $scope.service = service;
+});
+</code></pre>
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/di.jugando.md"></section>
+    <section><h4 id="advanced">Advanced</h4>
+<ul>
+<li>La etiqueta ng-app construye un inyector</li>
+</ul>
+<pre><code class="lang-javascript">var injector = angular.element($(&quot;body&quot;)).injector();
+
+var $templateCache = injector.get(&quot;$templateCache&quot;);
+
+$templateCache.get(&quot;popover/docs/popover.tpl.demo.html&quot;);
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra.enlace.md"></section>
+    <section><p><a href="ejemplos/listaCompra/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -407,52 +1038,135 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra2.md"></section>
+    <section><h2 id="lista-de-la-compra-2">Lista de la compra 2</h2>
+<p><img src="assets/ejemplos.3a.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra2.2.md"></section>
+    <section><p><img src="assets/ejemplos.3b.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra2.3.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- vistas con el router de angular
+- comunicación rest con angular resources
+- paginación con angular bootstrap ui
+- filtros
+- animaciones
+
+Extra:
+- bus de comunicación
+- asincronía javascript mediante promesas
+</code></pre><p><a href="ejemplos/listaCompraCrud/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/router.md"></section>
+    <section><h2 id="routing">Routing</h2>
+<pre><code class="lang-javascript">app.config(function ($routeProvider) {
+  $routeProvider
+    .when(&#39;/&#39;, {
+        templateUrl: &#39;lista.html&#39;,
+        controller: &#39;ListaCtrl&#39;
+    })
+    .otherwise({
+      redirectTo: &#39;/&#39;
+    });
+});
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/router2.md"></section>
+    <section><pre><code class="lang-javascript">.when(&#39;/:id&#39;, {
+    templateUrl: &#39;editar.html&#39;,
+    controller: &#39;EditarCtrl&#39;,
+    resolve: {
+        ingrediente: function ($route, Ingrediente) {
+            return Ingrediente
+                .get({id: $route.current.params.id})
+                .$promise;
+        }
+    }
+})
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/rest.md"></section>
+    <section><h2 id="servicios-rest">Servicios REST</h2>
+<pre><code class="lang-javascript">app.factory(&#39;services&#39;, function () {
+  return $resource(&#39;/services/:serviceId&#39;, {serviceId:&#39;@id&#39;});
+});
+</code></pre>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/rest.index.md"></section>
+    <section><ul>
+<li><p>Index</p>
+<pre><code class="lang-javascript">  var services = Services.query(function () {
+      console.log(&quot;hemos recibido los servicios!&quot;, services);
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/rest.put.md"></section>
+    <section><ul>
+<li><p>Create</p>
+<pre><code class="lang-javascript">  Service.$save(function(service) {
+     $location.url(&#39;/&#39;);
+  });
+</code></pre>
+</li>
+<li><p>Update</p>
+<pre><code class="lang-javascript">  Service.$update(function(service) {
+     $location.url(&#39;/&#39;);
+  });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/rest.get.md"></section>
+    <section><ul>
+<li>Get<pre><code class="lang-javascript">  Service.get({serviceId:123}, function(service) {
+     $scope.service = service;
+   });
+</code></pre>
+</li>
+</ul>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.lista.compra2.enlace.md"></section>
+    <section><p><a href="ejemplos/listaCompraCrud/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -464,17 +1178,28 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.bootstrap.md"></section>
+    <section><h2 id="angularstrap-y-ngstyle">AngularStrap y ngStyle</h2>
+<p><img src="assets/ejemplos.4.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.bootstrap.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- templates con ng-include
+- ventanas modales y popovers con AngularStrap
+</code></pre><p><a href="http://mgcrea.github.io/angular-strap">angularStrap</a></p>
+<p><a href="ejemplos/bootrap/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.bootstrap.enlace.md"></section>
+    <section><p><a href="ejemplos/bootstrap/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -486,17 +1211,27 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.translate.md"></section>
+    <section><h2 id="angular-translate">Angular Translate</h2>
+<p><img src="assets/ejemplos.5.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.translate.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- Angular Translate
+</code></pre><p><a href="https://github.com/angular-translate/angular-translate">Angular Translate</a></p>
+<p><a href="ejemplos/translate/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.translate.enlace.md"></section>
+    <section><p><a href="ejemplos/translate/">Enlace</a></p>
+
+</section>
 
 
                             
@@ -508,17 +1243,233 @@
                         <section>
                             
                                 
-    <section data-markdown="slides/ejemplos.masonry.md"></section>
+    <section><h2 id="masonry">Masonry</h2>
+<p><img src="assets/ejemplos.6.png" alt=""></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.masonry.2.md"></section>
+    <section><h3 id="objetivos">Objetivos</h3>
+<pre><code>- Galeria con Masonry
+</code></pre><p><a href="https://github.com/passy/angular-masonry">Angular Masonry</a></p>
+<p><a href="ejemplos/angular.masonry/">Enlace</a></p>
+
+</section>
 
 
                             
                                 
-    <section data-markdown="slides/ejemplos.masonry.enlace.md"></section>
+    <section><p><a href="ejemplos/angular.masonry/">Enlace</a></p>
+
+</section>
+
+
+                            
+                        </section>
+                    
+                
+                    
+                    
+                        <section>
+                            
+                                
+    <section><h2 id="directivas">Directivas</h2>
+
+</section>
+
+
+                            
+                                
+    <section><p>Lleva un momento inevitable en el que:</p>
+<ul>
+<li>Necesitas manipular el DOM directamente</li>
+<li>Necesitas refactorizar codigo repetido</li>
+<li>Necesitas crear HTML para diseñadores</li>
+</ul>
+
+</section>
+
+
+                            
+                                
+    <section><h3 id="compilaci-n">Compilación</h3>
+<ul>
+<li>Compila el HTML analizando el DOM devuelto por el navegador</li>
+<li>Compara cada elemento, atributo, comentario o class css contra una lista de directivas registradas</li>
+<li>Si la directiva no está compilada, llama a la función compile (esta devolverá la función link)</li>
+<li>Llama a la función link de la directiva<pre><code>  link: function(scope, element, attrs, ngModelController) { ... }
+</code></pre></li>
+<li>Crea un scope y asigna el scope a cada directiva</li>
+</ul>
+
+</section>
+
+
+                            
+                                
+    <section><h3 id="-c-mo-indicamos-que-es-una-directiva-">¿Cómo indicamos que es una directiva?</h3>
+<pre><code class="lang-html">&lt;my-directive&gt;&lt;/my-directive&gt;
+&lt;input my-directive&gt;
+&lt;!-- directive: my-directive--&gt;
+&lt;input class=&quot;my-directive&quot;&gt;
+</code></pre>
+<p>Angular normalizará los nombres:</p>
+<ul>
+<li>Elimina x- y el data- de los elementos y atributos</li>
+<li>Convierte los nombres seperados por : - _ a camelCase</li>
+</ul>
+
+</section>
+
+
+                            
+                                
+    <section><h3 id="scopes-y-directivas">Scopes y directivas</h3>
+<ul>
+<li><p>reutilizar el scope</p>
+<pre><code>  scope: false
+</code></pre></li>
+<li><p>nuevo scope</p>
+<pre><code>  scope: true
+</code></pre></li>
+<li><p>Aislar</p>
+<pre><code>  {
+      interpolado: &quot;@&quot;,
+      databind: &quot;=&quot;,
+      expression: &quot;&amp;&quot;
+  }
+</code></pre></li>
+</ul>
+
+</section>
+
+
+                            
+                                
+    <section><h3 id="scopes-y-directivas">Scopes y directivas</h3>
+<p><img src="assets/scope.png" alt=""></p>
+
+</section>
+
+
+                            
+                                
+    <section><h3 id="-como-le-indicamos-si-debe-ser-un-nombre-un-atributo-o-una-clase-">¿Como le indicamos si debe ser un nombre, un atributo o una clase?</h3>
+<p>Convención</p>
+<pre><code>- Elemento si tomará el control del template
+- Atributo si &quot;decora&quot; el elemento.
+</code></pre><p>La restricción se define con:</p>
+<pre><code>- &#39;A&#39; attribute name
+- &#39;E&#39; element name
+- &#39;C&#39; class name
+</code></pre><p>require: &#39;?ngModel&#39; or &#39;^ngModel&#39;</p>
+
+</section>
+
+
+                            
+                                
+    <section><pre><code class="lang-javascript">myModule.directive(&#39;button&#39;, function() {
+    return {
+        restrict: &#39;E&#39;,
+        compile: function(element, attributes) {
+            element.addClass(&#39;btn&#39;);
+            if ( attributes.type === &#39;submit&#39; ) {
+                element.addClass(&#39;btn-primary&#39;);
+            }
+            if ( attributes.size ) {
+                element.addClass(&#39;btn-&#39; + attributes.size);
+            }
+        }
+    };
+});
+</code></pre>
+
+</section>
+
+
+                            
+                                
+    <section><pre><code class="lang-javascript">describe(&#39;button directive&#39;, function () {
+    var $compile, $rootScope;
+    beforeEach(module(&#39;directives.button&#39;));
+    beforeEach(inject(function(_$compile_, _$rootScope_) {
+        $compile = _$compile_;
+        $rootScope = _$rootScope_;
+    }));
+    it(&#39;adds a &quot;btn&quot; class to the button element&#39;, function() {
+        var element = $compile(&#39;&lt;button&gt;&lt;/button&gt;&#39;)($rootScope);
+        expect(element.hasClass(&#39;btn&#39;)).toBe(true);
+    });
+});
+</code></pre>
+
+</section>
+
+
+                            
+                                
+    <section><pre><code class="lang-javascript">myModule.directive(&#39;validateEquals&#39;, function() {
+    return {
+        require: &#39;ngModel&#39;,
+        link: function(scope, elm, attrs, ngModelCtrl) {
+            function validateEqual(myValue) {
+                var valid = (myValue === scope.$eval(attrs.validateEquals));
+                ngModelCtrl.$setValidity(&#39;equal&#39;, valid);
+                return valid ? myValue : undefined;
+            }
+            ngModelCtrl.$parsers.push(validateEqual);
+            ngModelCtrl.$formatters.push(validateEqual);
+            scope.$watch(attrs.validateEquals, function() {
+                ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+            });
+        }
+    };
+});
+</code></pre>
+
+</section>
+
+
+                            
+                                
+    <section><pre><code class="lang-javascript">describe(&#39;validateEquals directive&#39;, function() {
+    var $scope, modelCtrl, modelValue;
+    beforeEach(inject(function($compile, $rootScope) {
+        ...
+        modelValue = $scope.model = {};
+        modelCtrl = $scope.testForm.testInput;
+        ...
+    }));
+    ...
+    describe(&#39;model value changes&#39;, function() {
+        it(&#39;should be invalid if the model changes&#39;, function() {
+            modelValue.testValue = &#39;different&#39;;
+            $scope.$digest();
+            expect(modelCtrl.$valid).toBeFalsy();
+            expect(modelCtrl.$viewValue).toBe(undefined);
+        });
+        it(&#39;should be invalid if the reference model changes&#39;, function() {
+            modelValue.compareTo = &#39;different&#39;;
+            $scope.$digest();
+            expect(modelCtrl.$valid).toBeFalsy();
+            expect(modelCtrl.$viewValue).toBe(undefined);
+        });
+        it(&#39;should be valid if the modelValue changes to be the same as the reference&#39;, function() {
+            modelValue.compareTo = &#39;different&#39;;
+            $scope.$digest();
+            expect(modelCtrl.$valid).toBeFalsy();
+            modelValue.testValue = &#39;different&#39;;
+            $scope.$digest();
+            expect(modelCtrl.$valid).toBeTruthy();
+            expect(modelCtrl.$viewValue).toBe(&#39;different&#39;);
+        });
+});
+</code></pre>
+
+</section>
 
 
                             
@@ -529,38 +1480,33 @@
 
         </div>
 
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
-        <script src="bower_components/reveal.js/js/reveal.min.js"></script>
+        <script src="bower_components/reveal.js/js/reveal.js"></script>
         <script>
-            // Configure Reveal
-            // Full list of configuration options available here:
-            // https://github.com/hakimel/reveal.js#configuration
-            Reveal.initialize({
-                controls: true,
-                progress: true,
-                history: true,
-                center: true,
 
-                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+          // Full list of configuration options available at:
+          // https://github.com/hakimel/reveal.js#configuration
+          Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
 
-                // Optional libraries used to extend on reveal.js
-                dependencies: [
-                    { src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-                    // { src: 'bower_components/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-                    //{ src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-                    { src: 'js/loadhtmlslides.js', condition: function() { return !!document.querySelector( '[data-html]' ); } }
-                ]
-            });
+            // Optional reveal.js plugins
+            dependencies: [
+              { src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+              { src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+              { src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( '[data-html]' ) || !!document.querySelector( 'pre code' ) || !!document.querySelector( '[data-markdown]' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true },
+              { src: 'js/loadhtmlslides.js', condition: function() { return !!document.querySelector( '[data-html]' ); } }
+            ]
+          });
+
         </script>
-
     </body>
 
 </html>
