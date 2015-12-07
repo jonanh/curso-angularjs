@@ -2,7 +2,8 @@
   "name": "angularjs",
   "version": "0.0.0",
   "dependencies": {
-    "reveal.js": "~2.6.1",
+    "reveal.js": "~3.1.0",
+    "highlightjs": "~8.5.0",
     "angular-translate": "~2.2.0",
     "lodash": "~2.4.1",
     "ng-file-upload": "~1.4.0",
@@ -11,15 +12,21 @@
     "ng-tags-input": "~2.0.1",
     "angular-strap": "~2.0.3",
     "socket.io-client": "~1.0.4",
-    "angular-resource": "~1.2.16",
+    "angular-resource": "~1.4.8",
     "webcam-directive": "~1.1.0",
     "bootstrap-sass-official": "~3.1.1",
     "angular-translate-loader-static-files": "~2.2.0",
     "angular-bootstrap-colorpicker": "~3.0.7",
     "angular-sanitize": "~1.2.16",
-    "angular-animate": "~1.2.16",
+    "angular-animate": "~1.4.8",
     "angular-motion": "~0.3.2",
     "angularjs-nvd3-directives": "~0.0.7",
-    "angular-masonry": "~0.8.1"
+    "angular-masonry": "~0.8.1",
+    "angular": "~1.4.8"
+  },
+  "resolutions": {
+    "angular-animate": "~1.4.8",
+    "angular": "~1.4.8",
+    "d3": "~3.3.13"
   }
 }
