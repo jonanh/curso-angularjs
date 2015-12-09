@@ -94,22 +94,6 @@ module.exports = (grunt) ->
                 }]
 
 
-        markdown:
-            compile:
-                options:
-                    template: 'templates/_markdown.html'
-                files: [{
-                    expand: true,
-                    cwd: 'slides/',
-                    dest: 'slides',
-                    src: [
-                        '**/*.md',
-                        '!**/_*.md'
-                    ],
-                    ext: '.html'
-                }]
-
-
         buildcontrol:
 
             options:
@@ -133,12 +117,15 @@ module.exports = (grunt) ->
             indexTemplate = grunt.file.read 'templates/_index.html'
             sectionTemplate = grunt.file.read 'templates/_section.html'
             slides = grunt.file.readJSON 'slides/list.json'
+            marked = require('marked')
 
             html = grunt.template.process indexTemplate, data:
                 slides:
                     slides
                 section: (slide) ->
                     grunt.template.process sectionTemplate, data:
+                        marked:
+                            marked
                         slide:
                             slide
             grunt.file.write 'index.html', html

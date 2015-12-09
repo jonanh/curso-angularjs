@@ -1,5 +1,5 @@
 <% if (!_.isString(slide) && !_.isArray(slide) && _.isObject(slide)) { %>
-    <section <%= _.map(slide.attr, function (val, attr) {return attr + '="' + val + '"'}).join(' ')%> <% if (_.isString(slide.filename)) { %>><%= grunt.file.read("slides/" + slide.filename.replace(/\.\w+$/,".html")) %>"<% } %></section>
+    <section <% _.map(slide.attr, function (val, attr) {return attr + '="' + val + '"'}).join(' ') %>><% if (_.isString(slide.filename)) { if (slide.filename.indexOf('.html') !== -1) { %><%= grunt.file.read('slides/' + slide.filename) %><% } else { %><%= marked(grunt.file.read('slides/' + slide.filename)) %><% } } %></section>
 <% } %><% if (_.isString(slide)) { %>
-    <section><%= grunt.file.read("slides/" + slide.replace(/\.\w+$/,".html")) %></section>
+    <section><% if (slide.indexOf('.html') !== -1) { %><%= grunt.file.read('slides/' + slide) %><% } else { %><%= marked(grunt.file.read('slides/' + slide)) %><% } %></section>
 <% } %>
