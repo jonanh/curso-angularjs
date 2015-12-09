@@ -23,7 +23,7 @@ module.exports = (grunt) ->
                     'templates/_section.html'
                     'slides/list.json'
                 ]
-                tasks: ['markdown', 'buildIndex']
+                tasks: ['buildIndex']
 
             coffeelint:
                 files: ['Gruntfile.coffee']
@@ -138,7 +138,6 @@ module.exports = (grunt) ->
 
     grunt.registerTask 'serve',
         'Run presentation locally and start watch process (living document).', [
-            'markdown'
             'buildIndex'
             'sass'
             'connect:livereload'
@@ -149,7 +148,6 @@ module.exports = (grunt) ->
         'Save presentation files to *dist* directory.', [
             'test'
             'sass'
-            'markdown'
             'buildIndex'
             'copy'
         ]
